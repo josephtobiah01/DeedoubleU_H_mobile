@@ -1,0 +1,221 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net6.0-android;net6.0-ios;net6.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net6.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net6.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>DrakeWorkwise</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Drake WellbeingHub</ApplicationTitle>
+
+		
+		<!--Android-->
+		<AndroidKeyStore>True</AndroidKeyStore>
+		<AndroidSigningKeyStore>drakeworkwise.keystore</AndroidSigningKeyStore>
+		<AndroidSigningKeyAlias>key</AndroidSigningKeyAlias>
+		<AndroidSigningKeyPass>drakewellbeing</AndroidSigningKeyPass>
+		<AndroidSigningStorePass>drakewellbeing</AndroidSigningStorePass>
+
+
+		<!-- App Identifier -->
+		<ApplicationId>com.drakeintl.drakewellbeinghub</ApplicationId>
+		<ApplicationIdGuid>8F319173-7DE3-4CD7-AFF6-08AD899F83A1</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">14.2</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">14.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-windows10.0.19041.0|AnyCPU'">
+	  <Optimize>False</Optimize>
+	</PropertyGroup>
+	
+	<!--<PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Debug'">
+	  <CodesignKey>Apple Development: Mark Mico Rafer (6RXUAQNS68)</CodesignKey>
+	  <CodesignProvision>VS: com.drakeintl.drakewellbeinghub Development</CodesignProvision>
+	  <ArchiveOnBuild>true</ArchiveOnBuild>
+	  <TcpPort>58181</TcpPort>
+	</PropertyGroup>-->
+
+	<PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Release'">
+		<CodesignKey>iPhone Distribution: Drake Workwise Pty Ltd (U5997UW2S8)</CodesignKey>
+		<CodesignProvision>dwh.appstore</CodesignProvision>
+		<ArchiveOnBuild>true</ArchiveOnBuild>
+		<TcpPort>58181</TcpPort>
+		<MtouchLink>SdkOnly</MtouchLink>
+		<UseInterpreter>true</UseInterpreter>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net6.0-android|AnyCPU'">
+	  <EmbedAssembliesIntoApk>True</EmbedAssembliesIntoApk>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(TargetFramework)'=='net6.0-ios' and '$(Configuration)' == 'Debug'">
+	  <CodesignKey>Apple Development: Mark Mico Rafer (6RXUAQNS68)</CodesignKey>
+	  <CodesignProvision>VS: com.drakeintl.drakewellbeinghub Development</CodesignProvision>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\drakeworkwise_appicon.png" Resize="false" Color="#FFFF" ForegroundScale=".65" />
+		
+		<!-- Splash Screen -->
+
+		<MauiSplashScreen Include="Resources\Splash\drake_wellbeing_hub2.png" BaseSize="220,220" Color="#FFFFFF" />
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="75,75" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Remove="Resources\Images\drake_wellbeing_hub2" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\appointments.png" />
+	  <None Remove="Resources\Images\calendar.png" />
+	  <None Remove="Resources\Images\cc_au_beyondblue.png" />
+	  <None Remove="Resources\Images\cc_au_drakeworkwise.png" />
+	  <None Remove="Resources\Images\cc_au_lifeline.png" />
+	  <None Remove="Resources\Images\cc_au_policeemergency.png" />
+	  <None Remove="Resources\Images\cc_au_suicideprev.png" />
+	  <None Remove="Resources\Images\cc_nz_healthline.png" />
+	  <None Remove="Resources\Images\cc_nz_lifeline.png" />
+	  <None Remove="Resources\Images\cc_nz_lifeline_auckland.png" />
+	  <None Remove="Resources\Images\cc_nz_policeemergency.png" />
+	  <None Remove="Resources\Images\cc_nz_samaritans.png" />
+	  <None Remove="Resources\Images\cc_nz_suicideprev.png" />
+	  <None Remove="Resources\Images\chat.png" />
+	  <None Remove="Resources\Images\contactus.png" />
+	  <None Remove="Resources\Images\crisis.png" />
+	  <None Remove="Resources\Images\drake_wellbeing_hub2.png" />
+	  <None Remove="Resources\Images\drake_wellbeing_hub2" />
+	  <None Remove="Resources\Images\eap.png" />
+	  <None Remove="Resources\Images\eap_privacy.png" />
+	  <None Remove="Resources\Images\home.png" />
+	  <None Remove="Resources\Images\ic_arrow_next.png" />
+	  <None Remove="Resources\Images\ic_launcher_foreground.png" />
+	  <None Remove="Resources\Images\ic_new_launcher_round.png" />
+	  <None Remove="Resources\Images\login.png" />
+	  <None Remove="Resources\Images\mindfulness.png" />
+	  <None Remove="Resources\Images\pg_1.png" />
+	  <None Remove="Resources\Images\pg_12.png" />
+	  <None Remove="Resources\Images\pg_2.png" />
+	  <None Remove="Resources\Images\pg_6.png" />
+	  <None Remove="Resources\Images\pg_7.png" />
+	  <None Remove="Resources\Images\pg_8.png" />
+	  <None Remove="Resources\Images\phone.png" />
+	  <None Remove="Resources\Images\resources.png" />
+	  <None Remove="Resources\Images\res_art_1.png" />
+	  <None Remove="Resources\Images\res_art_32.png" />
+	  <None Remove="Resources\Images\res_art_9.jpg" />
+	  <None Remove="Resources\Images\settings.png" />
+	  <None Remove="Resources\Images\set_about.png" />
+	  <None Remove="Resources\Images\set_make_general_enquiry.png" />
+	  <None Remove="Resources\Images\set_privacy_policy.png" />
+	  <None Remove="Resources\Images\set_send_feedback.png" />
+	  <None Remove="Resources\Images\set_share_app.png" />
+	  <None Remove="Resources\Images\set_terms_and_conditions.png" />
+	  <None Remove="Resources\Images\sign_up.png" />
+	  <None Remove="Resources\Raw\countires_cities.json" />
+	  <None Remove="Resources\Raw\countries.json" />
+	  <None Remove="Resources\Raw\get_data.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AppCenter" Version="5.0.1" />
+	  <PackageReference Include="Microsoft.AppCenter.Analytics" Version="5.0.1" />
+	  <PackageReference Include="Microsoft.AppCenter.Crashes" Version="5.0.1" />
+	  <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiXaml Update="CustomControls\ContactUs.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\CrisisContact.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\LinkSet.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\ResourceItem.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\TitleBar.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\TitleButton.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\ValidateEditor.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="CustomControls\ValidateEntry.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\AppointmentPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CallUsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ContactUs.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\CrisisContactPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\EAPPrivacyPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\HomePage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\LandingPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\MessageEditorPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\ResourcesPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SearchPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SettingsPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\WebViewPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\WellbeingHubPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties /></VisualStudio></ProjectExtensions>
+
+</Project>

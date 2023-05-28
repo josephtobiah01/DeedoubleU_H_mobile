@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:cnv="clr-namespace:DrakeWorkwise.Converters"
+             x:Class="DrakeWorkwise.CustomControls.ValidateEditor"
+             x:Name="layout">
+    <ContentView.Resources>
+        <cnv:ReverseBool x:Key="revBool"/>
+        <cnv:BoolToColor x:Key="boolCol"/>
+    </ContentView.Resources>
+    <VerticalStackLayout>
+        <!--<Label Text="{Binding Title}" TextColor="{Binding IsValid, Converter={StaticResource boolCol}, ConverterParameter='#000000|#A10909'}" FontSize="Small" HorizontalOptions="Start" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>-->
+        <Editor MaxLength="500" HeightRequest="100" BackgroundColor="White" Text="{Binding Value}" Placeholder="{Binding Placeholder}" Keyboard="{Binding KeyBoard}" HorizontalOptions="FillAndExpand" Unfocused="Entry_Unfocused" Focused="Entry_Focused" AutoSize="TextChanges"/>
+        <!--<Label Text="{Binding Error}" IsVisible="{Binding IsValid, Converter={StaticResource revBool}}" FontSize="Small" TextColor="#A10909"/>-->
+    </VerticalStackLayout>
+</ContentView>

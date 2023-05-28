@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrakeWorkwise.Views.SearchPage"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             x:Name="parent">
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="{Binding Title}" HasPhoneLink="False"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="{Binding Title}" HasPhoneLink="False"/>
+    </Shell.TitleView>
+    <Frame Padding="5" 
+           Grid.Row="1"
+           BorderColor="Transparent"
+           BackgroundColor="White">
+
+
+
+        <Grid BackgroundColor="White">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <SearchBar Grid.Row="0" BackgroundColor="White" Placeholder="{Binding SearchPlaceHolder}"
+                       Text="{Binding SearchBarText}"/>
+
+            <CollectionView Grid.Row="1" SelectionMode="None" ItemsSource="{Binding SourceItems}" x:Name="CountriesCollection">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <HorizontalStackLayout Padding="5" Margin="5,1">
+                            <HorizontalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.SelectCommand, Source={x:Reference parent}}" CommandParameter="{Binding .}"/>
+                            </HorizontalStackLayout.GestureRecognizers>
+                            <Label Text="{Binding .}" FontSize="Medium" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                        </HorizontalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </Grid>
+
+
+
+    </Frame>
+</ContentPage>

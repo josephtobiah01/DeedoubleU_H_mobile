@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             xmlns:cnv="clr-namespace:DrakeWorkwise.Converters"
+             x:Class="DrakeWorkwise.Views.AppointmentPage"
+             BackgroundColor="#eeeded"
+             Title="Appointment"
+             IconImageSource="s_calendar.png">
+    <ContentPage.Resources>
+        <cnv:BoolToColor x:Key="boolCol"/>
+        <Style TargetType="Frame" x:Key="frameDet">
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="HasShadow" Value="False"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="Appointment" HasPhoneLink="True"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="Appointment" HasPhoneLink="True"/>
+    </Shell.TitleView>
+    <ScrollView>
+        <Grid x:Name="layout" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <HorizontalStackLayout Grid.Row="0" >
+                <Frame BorderColor="Transparent"
+                       BackgroundColor="White"
+                       CornerRadius="45"
+                       Padding="5"
+                       Margin="0,0,20,0">
+                    <Image Source="drake_wellbeing_hub2" HeightRequest="80" WidthRequest="80" Aspect="AspectFit" Margin="0"/>
+                </Frame>
+
+                <VerticalStackLayout VerticalOptions="CenterAndExpand">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CallCommand}" CommandParameter="Drake WellbeingHub|1300 135 600"/>
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label 
+                        Text="Drake WellbeingHub" TextColor="Black"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="StartAndExpand" />
+                    <Label 
+                        Text="1300 135 600"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="StartAndExpand"
+                        FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </HorizontalStackLayout>
+            <Frame Grid.Row="1" Style="{StaticResource frameDet}">
+                <VerticalStackLayout BackgroundColor="White" Padding="5,20">
+                    <Label Margin="5" Text="Leave your message below, and we will get back to you as soon as possible."/>
+                    <Label Margin="5" Text="Please call 000 in Australia or 111 in New Zealand if you feel your safety or another's safety is at risk, and you require emergency assistance.">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CallCommand}" CommandParameter="Australia 000|000|New Zealand 111|111"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </VerticalStackLayout>
+            </Frame>
+            <Label Text="YOUR DETAILS" Grid.Row="2" Margin="5"/>
+            <Frame Grid.Row="3" Style="{StaticResource frameDet}">
+                <Grid BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <custom:ValidateEntry Grid.Row="0" BindingContext="{Binding Name}"/>
+                    <custom:ValidateEntry Grid.Row="1" BindingContext="{Binding Email}"/>
+                    <custom:ValidateEntry Grid.Row="2" BindingContext="{Binding ContactNumber}"/>
+                    <custom:ValidateEntry Grid.Row="3" BindingContext="{Binding Employer}"/>
+                    <!--<custom:ValidateEntry Grid.Row="4" BindingContext="{Binding Location}"/>-->
+                    <!--<Grid Grid.Row="4" Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="20"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" CommandParameter="country"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Row="0" Text="Country" FontSize="Small" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>
+                        <Entry Grid.Row="1" IsReadOnly="True"  Text="{Binding Country}" Placeholder="Country" HorizontalOptions="FillAndExpand"/>
+                        --><!--<Label Grid.Row="2"  Text="{Binding Error}" IsVisible="{Binding IsValid, Converter={StaticResource revBool}}" FontSize="Small" TextColor="#A10909"/>--><!--
+                    </Grid>-->
+
+                    <Grid Grid.Row="4" Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" CommandParameter="country"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Row="0" Text="{Binding Country.Title}" 
+                               TextColor="{Binding Country.IsValid, Converter={StaticResource boolCol}, ConverterParameter='#000000|#A10909'}" 
+                               FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="0,10,0,5"/>
+                        <Editor Grid.Row="1" BackgroundColor="White" Text="{Binding Country.Value}" Placeholder="{Binding Country.Placeholder}" TextColor="Black" PlaceholderColor="LightGray"
+                               IsReadOnly="True" HorizontalOptions="FillAndExpand">
+                            <Editor.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchCommand}" CommandParameter="country"/>
+                            </Editor.GestureRecognizers>
+                        </Editor>
+                        <!--<Label Grid.Row="2"  Text="{Binding Error}" IsVisible="{Binding IsValid, Converter={StaticResource revBool}}" FontSize="Small" TextColor="#A10909"/>-->
+                    </Grid>
+
+                    <Grid Grid.Row="5" Margin="0,0,0,10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SearchCommand}" CommandParameter="city"/>
+                        </Grid.GestureRecognizers>
+                        <Label Grid.Row="0" Text="{Binding City.Title}" 
+                               TextColor="{Binding City.IsValid, Converter={StaticResource boolCol}, ConverterParameter='#000000|#A10909'}" 
+                               FontSize="Medium" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center" Margin="0,10,0,5"/>
+                        <Editor Grid.Row="1" BackgroundColor="White" Text="{Binding City.Value}" Placeholder="{Binding City.Placeholder}" TextColor="Black" PlaceholderColor="LightGray"
+                               IsReadOnly="True" HorizontalOptions="FillAndExpand">
+                            <Editor.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding SearchCommand}" CommandParameter="city"/>
+                            </Editor.GestureRecognizers>
+                        </Editor>
+                        <!--<Label Grid.Row="2"  Text="{Binding Error}" IsVisible="{Binding IsValid, Converter={StaticResource revBool}}" FontSize="Small" TextColor="#A10909"/>-->
+                    </Grid>
+
+                </Grid>
+            </Frame>
+            <StackLayout Orientation="Horizontal" Grid.Row="4"  Margin="5">
+                <Label HorizontalOptions="StartAndExpand" Text="PREFERRED DAYS"/>
+                <Label HorizontalOptions="End" Text="Select all that apply" HorizontalTextAlignment="End"/>
+            </StackLayout>
+            <Frame Grid.Row="5" Style="{StaticResource frameDet}">
+                <Grid ColumnSpacing="10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <CheckBox Grid.Row="0" IsChecked="{Binding MondayChecked}" Grid.Column="0"/>
+                    <Label Text="Monday" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="0" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='0'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <CheckBox Grid.Row="1" IsChecked="{Binding TuesdayChecked}" Grid.Column="0"/>
+                    <Label Text="Tuesday" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="1" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='1'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <CheckBox Grid.Row="2" IsChecked="{Binding WednesdayChecked}" Grid.Column="0"/>
+                    <Label Text="Wednesday" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="2" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='2'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <CheckBox Grid.Row="3" IsChecked="{Binding ThursdayChecked}" Grid.Column="0"/>
+                    <Label Text="Thursday" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="3" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='3'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <CheckBox Grid.Row="4" IsChecked="{Binding FridayChecked}" Grid.Column="0"/>
+                    <Label Text="Friday" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="4" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='4'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <CheckBox Grid.Row="5" IsChecked="{Binding WeekendChecked}" Grid.Column="0"/>
+                    <Label Text="Weekend" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="5" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='5'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                    <CheckBox Grid.Row="6" IsChecked="{Binding AnytimeChecked}" Grid.Column="0"/>
+                    <Label Text="Anytime" VerticalOptions="Center" VerticalTextAlignment="Center" Grid.Row="6" Grid.Column="1">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CheckCommand}" CommandParameter='6'/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </Grid>
+            </Frame>
+            <!--<StackLayout Orientation="Horizontal" Grid.Row="6"  Margin="5">
+                <Label HorizontalOptions="StartAndExpand" Text="PREFERRED TIME"/>
+                <Label HorizontalOptions="End" Text="Select one" HorizontalTextAlignment="End"/>
+            </StackLayout>
+            <Frame Grid.Row="7" Style="{StaticResource frameDet}">
+                <VerticalStackLayout BackgroundColor="White" Grid.Row="5">
+                    <RadioButton IsChecked="{Binding DuringOffice}" Content="  During Business Hours (9AM - 5PM)"/>
+                    <RadioButton IsChecked="{Binding AfterOffice}" Content="  After Business Hours (5PM onwards)"/>
+                </VerticalStackLayout>
+            </Frame>-->
+
+            <StackLayout Orientation="Horizontal" Grid.Row="6"  Margin="5">
+                <Label HorizontalOptions="StartAndExpand" Text="MESSAGE"/>
+                <Label HorizontalOptions="End" HorizontalTextAlignment="End" Text="Max 500 characters"/>
+            </StackLayout>
+            <Frame Grid.Row="7" Padding="10,10,10,20" Style="{StaticResource frameDet}">
+                <!--<Editor HeightRequest="100" Text="test" MaxLength="500" BackgroundColor="White"/>-->
+                <!--<custom:ValidateEditor x:Name="editMessage" BindingContext="{Binding Message}"/>-->
+                <Grid Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<Label Grid.Row="0" Text="{Binding Message.Title}" TextColor="{Binding Message.IsValid, Converter={StaticResource boolCol}, ConverterParameter='#000000|#A10909'}" FontSize="Small" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>-->
+                    <!--<Label Grid.Row="1" HeightRequest="100" Text="{Binding Message.Value}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetMessageCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>-->
+                    <Editor Grid.RowSpan="2" MaxLength="500" HeightRequest="100" BackgroundColor="White"  Text="{Binding Message.Value}" Placeholder="{Binding Message.Placeholder}" Keyboard="{Binding KeyBoard}" HorizontalOptions="FillAndExpand"  AutoSize="TextChanges">
+                        <Editor.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetMessageCommand}"/>
+                        </Editor.GestureRecognizers>
+                    </Editor>
+                </Grid>
+
+            </Frame>
+            <Button Grid.Row="8" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Text="Submit" Command="{Binding SubmitCommand}"/>
+        </Grid>
+    </ScrollView>
+</ContentPage>

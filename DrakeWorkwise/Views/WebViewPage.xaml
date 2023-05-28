@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             xmlns:cnv="clr-namespace:DrakeWorkwise.Converters"
+             x:Class="DrakeWorkwise.Views.WebViewPage"
+             Title="{Binding Title}"
+             IconImageSource="s_lock.png">
+    <ContentPage.Resources>
+        <cnv:EmptyString x:Key="empty"/>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="{Binding Title}" HasPhoneLink="True"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="{Binding Title}" HasPhoneLink="True"/>
+    </Shell.TitleView>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Frame Grid.Row="0" Padding="1" BackgroundColor="Black" CornerRadius="0" VerticalOptions="Start" HeightRequest="150" HorizontalOptions="StartAndExpand" IsVisible="{Binding ImgSource,Converter={StaticResource empty}}" >
+            <Grid BackgroundColor="Transparent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <!--<StackLayout Margin="5" Grid.Row="0" Orientation="Horizontal">
+                    <Label Text="Back" TextColor="White">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+                </StackLayout>-->
+                <!--<Label Grid.Row="1" Text="{Binding Title}" Margin="15" Opacity="1" HorizontalOptions="FillAndExpand" VerticalOptions="End" HorizontalTextAlignment="Center" FontSize="Large" TextColor="White"/>-->
+                <Image Grid.Row="0" Grid.RowSpan="2" Opacity="0.5" Source="{Binding ImgSource}" Aspect="AspectFill" BackgroundColor="White"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+            </Grid>
+        </Frame>
+        <!--<Image Grid.Row="0" Source="{Binding ImgSource}" Aspect="AspectFill" HeightRequest="150"   HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>-->
+        <WebView x:Name="webView" Navigating="webView_Navigating" Grid.Row="1" Margin="17, 15" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand" >
+            <WebView.Source>
+                <HtmlWebViewSource Html="{Binding HTML}"/>
+            </WebView.Source>
+        </WebView>
+        
+    </Grid>
+</ContentPage>

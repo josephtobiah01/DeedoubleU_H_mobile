@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:DrakeWorkwise.ViewModels"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             x:Class="DrakeWorkwise.Views.HomePage"
+             BackgroundColor="#eeeded"
+             x:Name="parent"
+             Title="Home"
+             IconImageSource="s_home.png">
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="Drake WellbeingHub" HasPhoneLink="True"/>
+    </NavigationPage.TitleView>
+    
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="Drake WellbeingHub" HasPhoneLink="True"/>
+    </Shell.TitleView>
+    <ContentPage.Resources>
+
+    </ContentPage.Resources>
+    
+    
+    <!--<Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <CollectionView Grid.Row="0" ItemsSource="{Binding HomeLinks}" ItemsLayout="VerticalGrid, 2">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <VerticalStackLayout>
+                        <custom:LinkSet LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}"/>
+                    </VerticalStackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        --><!--<Frame Grid.Row="1" BackgroundColor="#ffffff" CornerRadius="10" Padding="5" VerticalOptions="CenterAndExpand">
+            <Label Text="Are you a member of our portal? Log in" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Frame>--><!--
+    </Grid>-->
+    
+
+
+    <Grid Margin="0" 
+          ColumnSpacing="5" 
+          RowSpacing="0"
+          RowDefinitions="*,*,*,50"
+          ColumnDefinitions="*,*"
+          HorizontalOptions="FillAndExpand"
+          VerticalOptions="FillAndExpand"
+          Padding="0">
+
+        <custom:LinkSet Grid.Row="0" Grid.Column="0" BindingContext="{Binding WhatIsEAP}" LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}" Margin="40,15,0,0"/>
+        <custom:LinkSet Grid.Row="0" Grid.Column="1" BindingContext="{Binding Appointments}" LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}" Margin="0,15,40,0"/>
+        
+        <custom:LinkSet Grid.Row="1" Grid.Column="0" BindingContext="{Binding Mindfullness}" LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}" Margin="40,0,0,0"/>
+        <custom:LinkSet Grid.Row="1" Grid.Column="1" BindingContext="{Binding Resources}" LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}" Margin="0,0,40,0"/>
+
+        <custom:LinkSet Grid.Row="2" Grid.Column="0" BindingContext="{Binding ContactUs}" LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}" Margin="40,0,0,0"/>
+        <custom:LinkSet Grid.Row="2" Grid.Column="1" BindingContext="{Binding CrisisContact}" LinkCommand="{Binding BindingContext.ClickLinkCommand, Source={x:Reference parent}}" Margin="0,0,40,0"/>
+        <!--<Frame Grid.Row="3"
+               Grid.ColumnSpan="2"
+               Margin="0,5,0,0"
+               BackgroundColor="#00bb7e"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand"
+               BorderColor="Transparent"
+               CornerRadius="0">
+
+            <Grid ColumnDefinitions="*,*"
+                  RowDefinitions="*,Auto"
+                  RowSpacing="10">
+
+                <Label Grid.ColumnSpan="2"
+                       HorizontalOptions="FillAndExpand"
+                       HorizontalTextAlignment="Center"
+                       VerticalOptions="CenterAndExpand"
+                       FontSize="15"
+                       TextColor="#fff"
+                       Text="Are you registered to the portal?"/>
+
+                <Button Grid.Column="0"
+                        Grid.Row="1"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        CornerRadius="7"
+                        BorderColor="Transparent"
+                        BackgroundColor="#fff"
+                        Text="Login"
+                        TextColor="Black"
+                        FontSize="15"
+                        Margin="5"
+                        CommandParameter="Login"
+                        Command="{Binding ClickLinkCommand}"/>
+
+                <Button Grid.Column="1"
+                        Grid.Row="1"
+                        VerticalOptions="CenterAndExpand"
+                        HorizontalOptions="FillAndExpand"
+                        CornerRadius="7"
+                        BorderColor="Transparent"
+                        BackgroundColor="#fff"
+                        Text="Sign Up"
+                        TextColor="Black"
+                        FontSize="15"
+                        Margin="5"
+                        CommandParameter="SignUp"
+                        Command="{Binding ClickLinkCommand}"/>
+
+            </Grid>
+
+        </Frame>-->
+        <Frame Grid.Row="3"
+               Grid.ColumnSpan="2"
+               HorizontalOptions="FillAndExpand"
+               VerticalOptions="FillAndExpand"
+               Margin="43,5"
+               Padding="0,0"
+               BackgroundColor="#00bb7e"
+               CornerRadius="10">
+            <Frame.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ClickLinkCommand}" CommandParameter="WellbeingHubPage"/>
+            </Frame.GestureRecognizers>
+            <Label Text="Log in to Portal" TextColor="White" FontAttributes="Bold" FontSize="Medium" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"
+                   HorizontalTextAlignment="Center" VerticalTextAlignment="Center"/>
+        </Frame>
+
+    </Grid>
+
+    
+</ContentPage>

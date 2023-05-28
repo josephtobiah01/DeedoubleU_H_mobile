@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             xmlns:cnv="clr-namespace:DrakeWorkwise.Converters"
+             xmlns:model="clr-namespace:DrakeWorkwise.Models"
+             x:Class="DrakeWorkwise.Views.ResourcesPage"
+             
+             Title="ResourcesPage"
+             x:Name="parent">
+    <ContentPage.Resources>
+        <cnv:BoolToColor x:Key="boolCol"/>
+    </ContentPage.Resources>
+
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="Resources" HasPhoneLink="True"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="Resources" HasPhoneLink="True"/>
+    </Shell.TitleView>
+    <Grid x:Name="innerGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Frame Grid.Row="0" 
+               Padding="1" 
+               BackgroundColor="Black" 
+               CornerRadius="0" 
+               VerticalOptions="FillAndExpand"
+               HeightRequest="150" 
+               HorizontalOptions="FillAndExpand" >
+
+            <Image Opacity="0.5" Source="pg_1.png" Aspect="AspectFill"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+
+        </Frame>
+
+        <Grid Grid.Row="1" 
+              Margin="5,2"
+              x:Name="controlsGrid">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Frame  Grid.Row="0" BackgroundColor="#C8C8C8" Padding="4"  HorizontalOptions="FillAndExpand" BorderColor="Transparent" Margin="4">
+                <!--<StackLayout HorizontalOptions="FillAndExpand" Orientation="Horizontal" HeightRequest="50">-->
+                <Grid HeightRequest="50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Frame Grid.Column="0" HorizontalOptions="FillAndExpand" BorderColor="Transparent" CornerRadius="5" BackgroundColor="{Binding ArticlesSelected, Converter={x:StaticResource boolCol}, ConverterParameter='#ffffff|#C8C8C8'}" Padding="10,1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoadResourcesCommand}" CommandParameter="art"/>
+                        </Frame.GestureRecognizers>
+                        <Label Text="Articles" HorizontalTextAlignment="Center" VerticalTextAlignment="Center"  HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                    </Frame>
+                    <Frame  Grid.Column="1" HorizontalOptions="FillAndExpand" BorderColor="Transparent" CornerRadius="5" BackgroundColor="{Binding ExternalSelected, Converter={x:StaticResource boolCol}, ConverterParameter='#ffffff|#C8C8C8'}" Padding="10,1">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoadResourcesCommand}" CommandParameter="ext"/>
+                        </Frame.GestureRecognizers>
+                        <Label Text="External Resources" HorizontalTextAlignment="Center" VerticalTextAlignment="Center" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand"/>
+                    </Frame>
+                </Grid>
+                <!--</StackLayout>-->
+            </Frame>
+            <!--<Frame   
+                   VerticalOptions="FillAndExpand" 
+                   HorizontalOptions="FillAndExpand" 
+                   Padding="5"
+                   BorderColor="Transparent">
+
+                
+            </Frame>-->
+
+            <!--<CollectionView 
+                    VerticalOptions="FillAndExpand" 
+                    SelectionMode="None" 
+                    ItemsSource="{Binding DisplayResource}"     
+                    Grid.Row="1">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:DWHResources">
+
+                        <Grid ColumnDefinitions="*,Auto"
+                                  RowDefinitions="*,Auto"
+                                  RowSpacing="10">
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.OpenResourceCommand, Source={x:Reference parent}}" 
+                                                              CommandParameter="{Binding .}"/>
+                            </Grid.GestureRecognizers>
+                            <VerticalStackLayout Grid.Column="0" 
+                                                     Padding="5">
+
+
+                                <Label Text="{Binding Title}" 
+                                           FontSize="Medium" FontAttributes="Bold" 
+                                           Margin="7"/>
+
+                                <Label Text="{Binding ShortDescription}" 
+                                           Margin="7" 
+                                           FontSize="Small" LineBreakMode="WordWrap"/>
+
+                            </VerticalStackLayout>
+
+                            <Image Source="ic_arrow_next.png" 
+                                       Grid.Column="1" 
+                                       Margin="12"/>
+
+                            <BoxView HeightRequest="2" 
+                                         BackgroundColor="Gray"
+                                         Opacity="1" HorizontalOptions="FillAndExpand" 
+                                         VerticalOptions="Start" Margin="10,12" 
+                                         Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>-->
+
+            <Grid Grid.Row="1" IsVisible="{Binding ArticlesSelected}">
+                <!--<ListView 
+                    VerticalOptions="FillAndExpand" 
+                    VerticalScrollBarVisibility="Never"
+                    SelectionMode="None" 
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None"
+                    ItemsSource="{Binding Articles}"     
+                    Grid.Row="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:DWHResources">
+                            <ViewCell>
+                                <VerticalStackLayout Grid.Column="0" 
+                                                         Padding="5">
+                                    <VerticalStackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding BindingContext.OpenResourceCommand, Source={x:Reference parent}}" 
+                                                              CommandParameter="{Binding .}"/>
+                                    </VerticalStackLayout.GestureRecognizers>
+
+                                    <Label Text="{Binding Title}" 
+                                               FontSize="Medium" FontAttributes="Bold" 
+                                               Margin="7"/>
+
+                                    <Label Text="{Binding ShortDescription}" 
+                                               Margin="7" 
+                                               FontSize="Small" LineBreakMode="WordWrap"/>
+
+                                    <BoxView HeightRequest="2" 
+                                             BackgroundColor="Gray"
+                                             Opacity="1" HorizontalOptions="FillAndExpand" 
+                                             VerticalOptions="Start" Margin="10,12" 
+                                             Grid.Row="1" Grid.ColumnSpan="2"/>
+
+                                </VerticalStackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <custom:ResourceItem BindingContext="{Binding Articles[0]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[1]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[2]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[3]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[4]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[5]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[6]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[7]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[8]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[9]}"/>
+                        <custom:ResourceItem BindingContext="{Binding Articles[10]}"/>
+                    </VerticalStackLayout>
+                </ScrollView>
+
+            </Grid>
+
+            <Grid Grid.Row="1" IsVisible="{Binding ExternalSelected}">
+                <!--<ListView 
+                    VerticalOptions="FillAndExpand" 
+                    SelectionMode="None" 
+                    HasUnevenRows="True"
+                    SeparatorVisibility="None"
+                    ItemsSource="{Binding ExternalResources}"    
+                    VerticalScrollBarVisibility="Never"
+                    Grid.Row="1">
+                    <ListView.ItemTemplate>
+                        <DataTemplate x:DataType="model:DWHResources">
+                            <ViewCell>
+                                <custom:ResourceItem />
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>-->
+                <ScrollView>
+                    <VerticalStackLayout>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[0]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[1]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[2]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[3]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[4]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[5]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[6]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[7]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[8]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[9]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[10]}"/>
+                        <custom:ResourceItem BindingContext="{Binding ExternalResources[11]}"/>
+                    </VerticalStackLayout>
+                </ScrollView>
+
+            </Grid>
+        </Grid>
+    </Grid>
+</ContentPage>

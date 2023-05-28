@@ -1,0 +1,6 @@
+Android publish
+- open developer powershell
+- execute this
+- dotnet publish -f:net6.0-android -c:Release /p:AndroidSigningKeyPass=mypassword /p:AndroidSigningStorePass=mypassword
+- replace the mypassword with the keystore password
+- get the .aab to upload for google play console

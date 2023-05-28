@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrakeWorkwise.Views.ContactUs"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             xmlns:cnv="clr-namespace:DrakeWorkwise.Converters"
+             BackgroundColor="#eeeded"
+             Title="{Binding Title}">
+    <ContentPage.Resources>
+        <cnv:ReverseBool x:Key="revBool"/>
+        <cnv:BoolToColor x:Key="boolCol"/>
+        <Style TargetType="Frame" x:Key="frameDet">
+            <Setter Property="BorderColor" Value="Transparent"/>
+            <Setter Property="BackgroundColor" Value="White"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+        <Style TargetType="Entry">
+            <Setter Property="FontSize" Value="Medium"/>
+        </Style>
+    </ContentPage.Resources>
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="{Binding Title}" HasPhoneLink="True"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="{Binding Title}" HasPhoneLink="True"/>
+    </Shell.TitleView>
+    <ScrollView>
+        <Grid x:Name="layout" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <HorizontalStackLayout IsVisible="{Binding IsContact}" Grid.Row="0" >
+
+                <Frame CornerRadius="45"
+                       Padding="5"
+                       BorderColor="Transparent"
+                       BackgroundColor="White"
+                       Margin="0,0,20,0">
+                    <Image Source="drake_wellbeing_hub2" HeightRequest="80" WidthRequest="80" Aspect="AspectFit" Margin="0"/>
+                </Frame>
+                
+                
+                <VerticalStackLayout VerticalOptions="CenterAndExpand">
+                    <VerticalStackLayout.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding CallCommand}" CommandParameter="Drake WellbeingHub|1300 135 600"/>
+                    </VerticalStackLayout.GestureRecognizers>
+                    <Label 
+                        Text="Drake WellbeingHub" TextColor="Black"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="StartAndExpand" />
+
+                    <Label 
+                        Text="1300 135 600" TextColor="Gray"
+                        VerticalOptions="Center" 
+                        HorizontalOptions="StartAndExpand" />
+
+                </VerticalStackLayout>
+                
+            </HorizontalStackLayout>
+            
+            <Frame IsVisible="{Binding IsContact}" Grid.Row="1" Style="{StaticResource frameDet}">
+                
+                <VerticalStackLayout BackgroundColor="White" Padding="5,20">
+                    
+                    <Label Margin="5" Text="Leave your message below, and we will get back to you as soon as possible."/>
+
+                    <Label Margin="5" Text="Please call 000 in Australia or 111 in New Zealand if you feel your safety or another's safety is at risk, and you require emergency assistance.">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding CallCommand}" CommandParameter="Australia 000|000|New Zealand 111|111"/>
+                        </Label.GestureRecognizers>
+                    </Label>
+
+                </VerticalStackLayout>
+                
+            </Frame>
+            
+            <Frame IsVisible="{Binding IsContact, Converter={StaticResource revBool}}" Grid.Row="1" Style="{StaticResource frameDet}">
+                
+                <VerticalStackLayout BackgroundColor="White" Padding="5,20">
+                    <Label Text="We'd love to hear what you think about this app. Leave your comments below and we can use your feedback to improve your experience."/>
+                </VerticalStackLayout>
+                
+            </Frame>
+            
+            <Label Text="YOUR DETAILS" Grid.Row="2" Margin="5"/>
+            
+            <Frame Grid.Row="3" Style="{StaticResource frameDet}">
+                <Grid BackgroundColor="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+
+                    <custom:ValidateEntry Grid.Row="0" BindingContext="{Binding Name}"/>
+                    <custom:ValidateEntry Grid.Row="1" BindingContext="{Binding Email}"/>
+                    <custom:ValidateEntry Grid.Row="2" BindingContext="{Binding Phone}"/>
+                </Grid>
+            </Frame>
+            <StackLayout Orientation="Horizontal" Grid.Row="4"  Margin="5">
+                <Label HorizontalOptions="StartAndExpand" Text="YOU ARE"/>
+                <Label HorizontalOptions="End" Text="Select one" HorizontalTextAlignment="End"/>
+            </StackLayout>
+            <Frame Grid.Row="5" Style="{StaticResource frameDet}">
+                <VerticalStackLayout BackgroundColor="White" Grid.Row="5">
+                    <RadioButton Content="  Employee" BackgroundColor="White" IsChecked="{Binding IsEmployee}"/>
+                    <RadioButton Content="  Employer" BackgroundColor="White" IsChecked="{Binding IsEmployer}"/>
+                    <RadioButton Content="  Provider" BackgroundColor="White" IsChecked="{Binding IsProvider}"/>
+                </VerticalStackLayout>
+            </Frame>
+
+            <StackLayout Orientation="Horizontal" Grid.Row="6"  Margin="5">
+                <Label HorizontalOptions="StartAndExpand" Text="MESSAGE"/>
+                <Label HorizontalOptions="End" HorizontalTextAlignment="End" Text="Max 500 characters"/>
+            </StackLayout>
+
+            <Frame Grid.Row="7" Style="{StaticResource frameDet}">
+                <!--<custom:ValidateEditor x:Name="editMessage" HorizontalOptions="FillAndExpand" BindingContext="{Binding Message}" />-->
+                <Grid Margin="0,0,0,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <!--<Label Grid.Row="0" Text="{Binding Message.Title}" TextColor="{Binding Message.IsValid, Converter={StaticResource boolCol}, ConverterParameter='#000000|#A10909'}" FontSize="Small" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Start" VerticalTextAlignment="Center"/>-->
+                    <!--<Label Grid.Row="1" HeightRequest="100" Text="{Binding Message.Value}" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+                        <Label.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetMessageCommand}"/>
+                        </Label.GestureRecognizers>
+                    </Label>-->
+                    <Editor Grid.RowSpan="2"  MaxLength="500" HeightRequest="100" BackgroundColor="White"  Text="{Binding Comments.Value}" Placeholder="{Binding Comments.Placeholder}" Keyboard="{Binding KeyBoard}" HorizontalOptions="FillAndExpand"  AutoSize="TextChanges">
+                        <Editor.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding SetMessageCommand}"/>
+                        </Editor.GestureRecognizers>
+                    </Editor>
+                </Grid>
+
+            </Frame>
+
+            <Button Grid.Row="8" Margin="10" HorizontalOptions="FillAndExpand" VerticalOptions="CenterAndExpand" Text="Submit" Command="{Binding SubmitCommand}"/>
+            
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrakeWorkwise.CustomControls.TitleButton"
+             x:Name="titleBtn">
+    <Grid Margin="3,5,8,5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Column="0" Text="{Binding TitleText, Source={x:Reference titleBtn}}" TextColor="White" HorizontalOptions="StartAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Start" FontSize="Medium"/>
+        <Label Grid.Column="1" Text="{Binding ButtonText, Source={x:Reference titleBtn}}" TextColor="White" HorizontalOptions="EndAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="End"  FontSize="Medium">
+            <Label.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding ButtonCommand}"/>
+            </Label.GestureRecognizers>
+        </Label>
+        <!--<Image Grid.Column="1" Source="phone.png" HorizontalOptions="EndAndExpand" HeightRequest="30" WidthRequest="30" Aspect="AspectFit" 
+               IsVisible="{Binding HasPhoneLink, Source={x:Reference titleBtn}}">
+            <Image.GestureRecognizers>
+                <TapGestureRecognizer Command="{Binding CallUsCommand}" CommandParameter="CallUsPage"/>
+            </Image.GestureRecognizers>
+        </Image>-->
+    </Grid>
+</ContentView>

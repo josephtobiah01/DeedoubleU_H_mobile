@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="DrakeWorkwise.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:views="clr-namespace:DrakeWorkwise.Views"
+    xmlns:local="clr-namespace:DrakeWorkwise"
+    xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+    Shell.FlyoutBehavior="Disabled"
+    Title="Drake WellbeingHub">
+    <!--<ShellContent ContentTemplate="{DataTemplate views:LandingPage}"/>-->
+    <TabBar >
+        <Tab Title="Home" Icon="s_home.png" x:Name="home">
+            <ShellContent Route="home" ContentTemplate="{DataTemplate views:HomePage}"/>
+        </Tab>
+        <Tab Title="Appointment" Icon="s_calendar.png" x:Name="appointments">
+            <ShellContent Route="appointment" ContentTemplate="{DataTemplate views:AppointmentPage}"/>
+        </Tab>
+        <Tab Title="EAP Privacy" Icon="s_lock.png">
+            <ShellContent Route="eap" ContentTemplate="{DataTemplate views:WebViewPage}"/>
+        </Tab>
+        <Tab Title="Settings" Icon="s_settings.png">
+            <ShellContent Route="settings" ContentTemplate="{DataTemplate views:SettingsPage}"/>
+        </Tab>
+
+        <!--<ShellContent Icon="s_home.png" Title="Home" Route="home" ContentTemplate="{DataTemplate views:HomePage}"/>
+
+        <ShellContent Icon="s_calendar.png" Title="Appointment" Route="appointment" ContentTemplate="{DataTemplate views:AppointmentPage}"/>
+
+        <ShellContent Icon="s_lock.png" Title="EAP Privacy" Route="eap" ContentTemplate="{DataTemplate views:EAPPrivacyPage}"/>
+
+        <ShellContent  Icon="s_settings.png" Title="Settings" Route="settings" ContentTemplate="{DataTemplate views:SettingsPage}"/>-->
+
+    </TabBar>
+
+    <!--<ShellContent ContentTemplate="{DataTemplate views:HomePage}" Title="Home" Route="home"/>
+
+    <ShellContent ContentTemplate="{DataTemplate views:AppointmentPage}" Title="Appointment" Route="appointment" x:Name="appointments"/>-->
+
+
+
+</Shell>

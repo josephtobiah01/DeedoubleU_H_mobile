@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DrakeWorkwise.Views.CallUsPage"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             Title="Call Us"
+             BackgroundColor="#eeeded"
+             x:Name="parent">
+    <NavigationPage.TitleView>
+        <custom:TitleBar TitleText="Call Us" BackgroundColor="Transparent"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleBar TitleText="Call Us" BackgroundColor="Transparent"/>
+    </Shell.TitleView>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Frame Grid.Row="0" BackgroundColor="White">
+            <Image Margin="5" Source="drake_wellbeing_hub2"/>
+        </Frame>
+        
+        <Label Grid.Row="1" Margin="5" Text="Our support team is available 24h to chat over the phone:"/>
+        <CollectionView Margin="0,5" Grid.Row="2" SelectionMode="None" ItemsSource="{Binding PhoneContactDetails}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <!--<custom:ContactUs LinkCommand="{Binding BindingContext.PhoneCallCommand, Source={x:Reference parent}}"/>-->
+                    <Frame Margin="0,5" BackgroundColor="White">
+                        <Grid Padding="5" >
+                            <Grid.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding BindingContext.PhoneCallCommand, Source={x:Reference parent}}" CommandParameter="{Binding .}"/>
+                            </Grid.GestureRecognizers>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="130"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label HorizontalOptions="Start" Grid.Column="0"
+                                    Text="{Binding Text}" FontAttributes="Bold" TextColor="Black"/>
+                            <Label HorizontalOptions="CenterAndExpand" VerticalTextAlignment="Center" Grid.Column="1"
+                                    Text="{Binding ContactNumber}" TextColor="Gray"/>
+
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

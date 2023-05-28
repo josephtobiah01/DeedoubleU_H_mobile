@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:custom="clr-namespace:DrakeWorkwise.CustomControls"
+             x:Class="DrakeWorkwise.Views.MessageEditorPage"
+             Title="MessageEditorPage">
+    <NavigationPage.TitleView>
+        <custom:TitleButton TitleText="Message" ButtonText="Done"/>
+    </NavigationPage.TitleView>
+    <Shell.TitleView>
+        <custom:TitleButton TitleText="Message" ButtonText="Done"/>
+    </Shell.TitleView>
+    <Grid Margin="5" x:Name="layout">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <ScrollView Grid.Row="0" VerticalScrollBarVisibility="Always">
+
+            <Editor x:Name="editor" MaxLength="500" HorizontalOptions="FillAndExpand" BackgroundColor="White" Text="{Binding Value}" Placeholder="Message" 
+                 Unfocused="Entry_Unfocused" Focused="Entry_Focused" AutoSize="TextChanges" Keyboard="Chat"/>
+        </ScrollView>
+        <Label x:Name="space" Grid.Row="1" HorizontalOptions="FillAndExpand" HeightRequest="0"/>
+    </Grid>
+
+</ContentPage>
